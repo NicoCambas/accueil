@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diaporama 16/9</title>
+    <style>
+        /* --- CSS --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000; /* Fond noir pour la transition */
+            overflow: hidden; /* Empêche l'apparition de barres de défilement */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #media-container {
+            width: 100%;
+            height: 100%;
+            opacity: 0; /* Invisible par défaut pour amorcer le fondu au noir */
+            transition: opacity 1s ease-in-out; /* Transition d'exactement 1 seconde */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Classe ajoutée en JS pour faire apparaître l'image/vidéo */
+        #media-container.visible {
+            opacity: 1; 
+        }
+
+        img, video {
+            max-width: 100%;
+            max-height: 100%;
+            /* "contain" garantit que l'image s'affiche en entier sans être coupée, 
+               tout en respectant le ratio de l'écran */
+            object-fit: contain; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="media-container"></div>
+
+    <script>
+        /* --- JAVASCRIPT --- */
+        const folder = "sources/";
+        
+        // LISTE DES FICHIERS (À MODIFIER PAR TES SOINS)
+        // Ajoute ici le nom exact de tes fichiers dans l'ordre d'affichage voulu.
+        const files = [
+            "01_Bienvenue_10s.png",
+            "02_Cafe_10s.png",
+            "03_Softs_10s.png",
+            "04_Bieres_10s.png",
+            "05_Guides_10s.png"
+        ];
+
+        let currentIndex = -1; // Commence à -1 pour que le premier passage cible l'index 0
+        const container = document.getElementById('media-container');
+
+        function playNext() {
+            // 1. Début du fondu au noir (disparition du média actuel)
+            container.classList.remove('visible');
+
+            // 2. On attend 1 seconde (la durée exacte du fondu CSS)
+            setTimeout(() => {
+                if (files.length === 0) return;
+
+                // Passer au fichier suivant (et revenir à 0 si on est à la fin)
+                currentIndex = (currentIndex + 1) % files.length;
+                
+                const fileName = files[currentIndex];
+                const filePath = folder + fileName;
+                
+                // Vérifier s'il s'agit d'une vidéo grâce à l'extension
+                const isVideo = fileName.match(/\.(mp4|webm|ogg)$/i);
+
+                // Vider l'écran (supprimer l'ancien fichier)
+                container.innerHTML = '';
+
+                if (isVideo) {
+                    // --- GESTION DE LA VIDÉO ---
+                    const videoEl = document.createElement('video');
+                    videoEl.src = filePath;
+                    videoEl.autoplay = true;
+                    videoEl.muted = true; // Requis par les navigateurs pour lire automatiquement
+                    
+                    // Quand la vidéo est terminée, on passe à la suite
+                    videoEl.onended = () => {
+                        playNext();
+                    };
+                    
+                    container.appendChild(videoEl);
+
+                    // Petite pause pour s'assurer que le navigateur a inséré la vidéo, puis fondu entrant
+                    setTimeout(() => container.classList.add('visible'), 50);
+
+                } else {
+                    // --- GESTION DE L'IMAGE ---
+                    const imgEl = document.createElement('img');
+                    imgEl.src = filePath;
+                    
+                    // Extraire la durée depuis le nom du fichier avec une expression régulière
+                    // Cherche un motif du type "_XXs." (ex: "_30s.")
+                    let durationInSeconds = 10; // Durée par défaut (sécurité) si le nom est mal formaté
+                    const match = fileName.match(/_(\d+)s\./);
+                    if (match) {
+                        durationInSeconds = parseInt(match[1], 10);
+                    }
+
+                    container.appendChild(imgEl);
+
+                    // Attendre que l'image soit bien chargée avant de lancer le fondu entrant
+                    imgEl.onload = () => {
+                        container.classList.add('visible');
+                        
+                        // Programmer le prochain changement en fonction de la durée trouvée
+                        setTimeout(() => {
+                            playNext();
+                        }, durationInSeconds * 1000); // Conversion des secondes en millisecondes
+                    };
+                }
+            }, 1000); // 1000 ms = 1 seconde d'écran noir entre chaque média
+        }
+
+        // Lancement automatique au démarrage de la page
+        window.onload = () => {
+            if (files.length > 0) {
+                playNext();
+            } else {
+                console.warn("La liste des fichiers est vide !");
+            }
+        };
+    </script>
+</body>
+</html>
