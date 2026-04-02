@@ -53,11 +53,11 @@
         // LISTE DES FICHIERS (À MODIFIER PAR TES SOINS)
         // Ajoute ici le nom exact de tes fichiers dans l'ordre d'affichage voulu.
         const files = [
-            "01_Bienvenue_10s.png",
-            "02_Cafe_10s.png",
-            "03_Softs_10s.png",
-            "04_Bieres_10s.png",
-            "05_Guides_10s.png"
+            "01_Bienvenue_30s.png",
+            "02_Cafe_20s.png",
+            "03_Softs_20s.png",
+            "04_Bieres_20s.png",
+            "05_Guides_20s.png"
         ];
 
         let currentIndex = -1; // Commence à -1 pour que le premier passage cible l'index 0
@@ -107,7 +107,7 @@
                     
                     // Extraire la durée depuis le nom du fichier avec une expression régulière
                     // Cherche un motif du type "_XXs." (ex: "_30s.")
-                    let durationInSeconds = 10; // Durée par défaut (sécurité) si le nom est mal formaté
+                    let durationInSeconds = 20; // Durée par défaut (sécurité) si le nom est mal formaté
                     const match = fileName.match(/_(\d+)s\./);
                     if (match) {
                         durationInSeconds = parseInt(match[1], 10);
@@ -125,7 +125,7 @@
                         }, durationInSeconds * 1000); // Conversion des secondes en millisecondes
                     };
                 }
-            }, 1000); // 1000 ms = 1 seconde d'écran noir entre chaque média
+            }, 300); // 1000 ms = 1 seconde d'écran noir entre chaque média
         }
 
         // Lancement automatique au démarrage de la page
