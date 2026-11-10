@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920, initial-scale=1">
+<meta http-equiv="refresh" content="1800">
+<title>Point du jour – Port de Chalon-sur-Saône</title>
+<style>
+@font-face{font-family:'League Spartan';font-weight:200;src:url(fonts/league-spartan-latin-200-normal.woff2) format('woff2')}
+@font-face{font-family:'League Spartan';font-weight:400;src:url(fonts/league-spartan-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'League Spartan';font-weight:700;src:url(fonts/league-spartan-latin-700-normal.woff2) format('woff2')}
+/* Compatible webOS Signage 4.x (Chromium 53) : flexbox sans gap, pas de CSS Grid */
+html,body{margin:0;padding:0;background:#6C2039;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;-webkit-transform-origin:0 0;transform-origin:0 0;
+  box-sizing:border-box;background:#FFFFFF;color:#000000;font-family:'League Spartan','Century Gothic',Arial,sans-serif;
+  display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column}
+h1,h2{margin:0}
+.row{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center}
+.col{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column}
+.fill{-webkit-flex:1 1 0;flex:1 1 0;min-width:0;min-height:0}
+.no-shrink{-webkit-flex-shrink:0;flex-shrink:0}
+
+header{background:#6C2039;color:#FFFFFF;padding:28px 64px 26px;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:flex-end;align-items:flex-end}
+header .logo{width:250px;height:auto;display:block;margin-right:48px}
+header .sep{width:2px;-webkit-align-self:stretch;align-self:stretch;background:rgba(255,255,255,.4);margin-right:48px}
+header .sub{font-weight:200;font-size:34px;line-height:1.15;margin-bottom:10px}
+header h1{font-weight:700;font-size:76px;line-height:.95}
+header .right{-webkit-align-items:flex-end;align-items:flex-end;margin-left:48px}
+header .date{font-weight:700;font-size:52px;line-height:.95;margin-bottom:12px}
+header .infos{font-weight:200;font-size:30px;line-height:1.15}
+
+main{padding:28px 64px 24px}
+main > section{margin-right:32px;width:calc((100% - 64px) / 3);-webkit-flex:none;flex:none;box-sizing:border-box}
+main > section:last-child{margin-right:0}
+.card{border:3px solid #6C2039;border-radius:16px;padding:27px;box-sizing:border-box}
+.title{color:#6C2039;margin-bottom:16px}
+.title svg{margin-right:14px}
+.title h2{font-weight:700;font-size:40px;line-height:1}
+.txt{font-weight:400;font-size:26px;line-height:1.3}
+
+.meteo{background:#0A3C27;color:#FFFFFF;border-radius:16px;padding:30px;box-sizing:border-box}
+.meteo .title{color:#FFFFFF}
+.meteo .now{margin-bottom:16px}
+.meteo .now svg{margin-right:20px}
+.meteo .temp{font-weight:700;font-size:92px;line-height:.9;margin-bottom:6px}
+.meteo .temp span{font-weight:200}
+.meteo .resume{font-weight:400;font-size:26px;line-height:1.25}
+.tiles{margin-bottom:16px}
+.tile{background:#F3E5C5;color:#6C2039;border-radius:16px;padding:14px 12px;margin-right:12px;-webkit-align-items:center;align-items:center;text-align:center}
+.tile:last-child{margin-right:0}
+.tile .lbl{font-weight:400;font-size:24px;line-height:1.15;margin:4px 0}
+.tile .t{font-weight:700;font-size:36px;line-height:1}
+.detail{font-weight:400;font-size:24px;line-height:1.25;margin-bottom:10px}
+.detail svg{margin-right:14px}
+
+.alerte{background:#6C2039;color:#FFFFFF;border-radius:8px;padding:18px 22px;margin-top:16px}
+.alerte .h{font-weight:700;font-size:30px;line-height:1.05;margin-bottom:8px}
+.alerte .txt{font-size:24px;line-height:1.25}
+
+.evt{-webkit-align-items:baseline;align-items:baseline;margin-bottom:22px}
+.evt .quand{width:168px;font-weight:700;font-size:26px;line-height:1.05;color:#0A3C27;margin-right:20px}
+.evt .quoi{font-weight:400;font-size:26px;line-height:1.3}
+
+footer{margin:0 64px 32px;background:#6C2039;color:#FFFFFF;border-radius:8px;padding:18px 28px}
+footer svg{margin-right:20px}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <header class="row no-shrink">
+    <div class="row">
+      <img class="logo no-shrink" src="logo-achalon.png" alt="AChalon, Office de Tourisme du Grand Chalon">
+      <div class="sep"></div>
+      <div class="col">
+        <div class="sub">A Chalon Plaisance · Port de Chalon-sur-Saône</div>
+        <h1>Le point du jour</h1>
+      </div>
+    </div>
+    <div class="col right">
+      <div class="date">Lundi 9 novembre</div>
+      <div class="infos">Capitainerie 9h–12h et 13h–17h · 03 85 48 83 38</div>
+    </div>
+  </header>
+
+  <main class="row fill" style="-webkit-align-items:stretch;align-items:stretch">
+
+    <!-- MÉTÉO -->
+    <section class="meteo col fill">
+      <div class="row title">
+        <svg aria-hidden="true" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 0-8 6 6 0 0 0-11.5 1.5A3.3 3.3 0 0 0 7 18z"></path></svg>
+        <h2>Météo</h2>
+      </div>
+      <div class="row now">
+        <svg class="no-shrink" role="img" aria-label="Très nuageux avec quelques petites pluies" width="130" height="130" viewBox="0 0 64 64">
+          <path d="M30 30h22a9 9 0 0 0 1-18 12 12 0 0 0-23 3" fill="#73815D"></path>
+          <path d="M10 46h30a10 10 0 0 0 1-20 13 13 0 0 0-25 3.5A8.3 8.3 0 0 0 10 46z" fill="#FFFFFF"></path>
+          <path d="M18 52l-2.5 7M29 52l-2.5 7M40 52l-2.5 7" stroke="#E95024" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+        <div class="col">
+          <div class="temp">5° <span>/</span> 17°</div>
+          <div class="resume">Doux mais très nuageux, quelques petites pluies</div>
+        </div>
+      </div>
+      <div class="row tiles" style="-webkit-align-items:stretch;align-items:stretch">
+        <div class="tile col fill">
+          <svg role="img" aria-label="Pluie faible" width="68" height="68" viewBox="0 0 64 64">
+            <path d="M16 38h30a10 10 0 0 0 1-20 13 13 0 0 0-25 3.5A8.3 8.3 0 0 0 16 38z" fill="#FFFFFF" stroke="#6C2039" stroke-width="2.5" stroke-linejoin="round"></path>
+            <path d="M22 45l-3 8M33 45l-3 8M44 45l-3 8" stroke="#0A3C27" stroke-width="4" stroke-linecap="round"></path>
+          </svg>
+          <div class="lbl">Matin</div>
+          <div class="t">10°</div>
+        </div>
+        <div class="tile col fill">
+          <svg role="img" aria-label="Couvert" width="68" height="68" viewBox="0 0 64 64">
+            <path d="M28 34h24a9 9 0 0 0 1-18 12 12 0 0 0-23 3" fill="#73815D"></path>
+            <path d="M12 52h30a10 10 0 0 0 1-20 13 13 0 0 0-25 3.5A8.3 8.3 0 0 0 12 52z" fill="#FFFFFF" stroke="#6C2039" stroke-width="2.5" stroke-linejoin="round"></path>
+          </svg>
+          <div class="lbl">Après-midi</div>
+          <div class="t">15°</div>
+        </div>
+        <div class="tile col fill">
+          <svg role="img" aria-label="Très nuageux" width="68" height="68" viewBox="0 0 64 64">
+            <path d="M28 34h24a9 9 0 0 0 1-18 12 12 0 0 0-23 3" fill="#73815D"></path>
+            <path d="M12 52h30a10 10 0 0 0 1-20 13 13 0 0 0-25 3.5A8.3 8.3 0 0 0 12 52z" fill="#FFFFFF" stroke="#6C2039" stroke-width="2.5" stroke-linejoin="round"></path>
+          </svg>
+          <div class="lbl">Soirée</div>
+          <div class="t">14°</div>
+        </div>
+      </div>
+      <div class="row detail">
+        <svg class="no-shrink" aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h8"></path></svg>
+        <div>Vent de sud faible, 20 km/h l'après-midi</div>
+      </div>
+      <div class="row detail">
+        <svg class="no-shrink" aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"></path></svg>
+        <div>Petites pluies cette nuit, environ 5 mm</div>
+      </div>
+      <div class="row detail">
+        <svg class="no-shrink" aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18M7 19a5 5 0 0 1 10 0M12 7v3M5.6 11.6l1.4 1.4M18.4 11.6L17 13"></path></svg>
+        <div>Lever 7h35 · coucher 17h16</div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION + VIE DU PORT -->
+    <section class="col fill">
+      <div class="card col no-shrink" style="margin-bottom:20px">
+        <div class="row title">
+          <svg aria-hidden="true" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"></circle><path d="M12 7v14M5 13a7 7 0 0 0 14 0M8 10h8"></path></svg>
+          <h2>Navigation · avis VNF</h2>
+        </div>
+        <div class="txt">Avis du jour sur la Saône et les canaux autour de Chalon : <strong>[à compléter]</strong></div>
+        <div class="alerte">
+          <div class="h">Mercredi 11 novembre : écluses fermées</div>
+          <div class="txt">Jour férié : toutes les écluses de la Saône, du Doubs aval et du bief aval du canal du Centre sont fermées. La navigation reste possible entre deux écluses.</div>
+        </div>
+      </div>
+      <div class="card col fill">
+        <div class="row title" style="margin-bottom:12px">
+          <svg aria-hidden="true" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"></path></svg>
+          <h2>Vie du port</h2>
+        </div>
+        <div class="txt" style="margin-bottom:8px">Aucune panne ni intervention prévue aujourd'hui sur le port.</div>
+        <div class="txt" style="font-weight:200">Basse saison : capitainerie fermée le week-end.</div>
+      </div>
+    </section>
+
+    <!-- AGENDA -->
+    <section class="card col fill" style="padding:33px">
+      <div class="row title" style="margin-bottom:24px">
+        <svg aria-hidden="true" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+        <h2>Lundi, mardi, mercredi</h2>
+      </div>
+      <div class="row evt"><div class="quand no-shrink">Mar. 10 · 18h</div><div class="quoi">« Jabuti », conte musical pour les enfants, La Péniche, quai Saint-Cosme</div></div>
+      <div class="row evt"><div class="quand no-shrink">Mer. 11 · 15h</div><div class="quoi">Visite guidée « Chalon-sur-Saône pendant la Première Guerre mondiale »</div></div>
+      <div class="row evt"><div class="quand no-shrink">Mer. 11 · 16h</div><div class="quoi">L'Harmonie municipale et La Vaillante « font leur comédie », salle Marcel Sembat</div></div>
+      <div class="row evt"><div class="quand no-shrink">Tout le mois</div><div class="quoi">Exposition « Pastels &amp; Jazz », Le Fantastico, Givry</div></div>
+    </section>
+  </main>
+
+  <footer class="row no-shrink">
+    <svg class="no-shrink" aria-hidden="true" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg>
+    <div class="txt"><strong>@achalontourisme</strong> · À découvrir : La Coupole, bistrot du quartier de la Citadelle (le midi, du lundi au samedi). Jeu-concours : 2 kirs à gagner, tirage le 19 novembre.</div>
+  </footer>
+</div>
+
+<script>
+// Met la page 1920x1080 à l'échelle de l'écran, quelle que soit sa résolution (ES5, compatible webOS 4)
+(function () {
+  var stage = document.getElementById('stage');
+  function fit() {
+    var w = window.innerWidth || document.documentElement.clientWidth;
+    var h = window.innerHeight || document.documentElement.clientHeight;
+    var s = Math.min(w / 1920, h / 1080);
+    var x = (w - 1920 * s) / 2, y = (h - 1080 * s) / 2;
+    var t = 'translate(' + x + 'px,' + y + 'px) scale(' + s + ')';
+    stage.style.webkitTransform = t;
+    stage.style.transform = t;
+  }
+  window.addEventListener('resize', fit);
+  fit();
+})();
+</script>
+</body>
+</html>
